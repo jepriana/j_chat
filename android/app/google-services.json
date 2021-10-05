@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "355784175135",
+    "project_id": "jchat-flutter",
+    "storage_bucket": "jchat-flutter.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:355784175135:android:a8ebfb982d18828ce0ef2a",
+        "android_client_info": {
+          "package_name": "com.puriware.jchat"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "355784175135-c396mp3cet2sg5o7ass7tbpnnl30l1tn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD4dKHzn6XQgTDqaa4uSU1zAL5GaKxwJuU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "355784175135-c396mp3cet2sg5o7ass7tbpnnl30l1tn.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
