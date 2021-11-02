@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:j_chat/widgets/chat/messages.dart';
 
 class ChatScreen extends StatefulWidget {
   const ChatScreen({Key? key}) : super(key: key);
@@ -10,37 +11,60 @@ class ChatScreen extends StatefulWidget {
 }
 
 class _ChatScreenState extends State<ChatScreen> {
-  final Future<FirebaseApp> _initialization = Firebase.initializeApp();
+  //final Future<FirebaseApp> _initialization = Firebase.initializeApp();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: FutureBuilder(
-        future: _initialization,
-        builder: (ctx, snapshot) {
-          if (snapshot.hasError) return Text('Error');
-          if (snapshot.connectionState == ConnectionState.waiting)
-            return CircularProgressIndicator();
-          return ListView.builder(
-            itemBuilder: (ctx, idx) => Container(
-              padding: EdgeInsets.all(8),
-              child: Text('This works...'),
+      appBar: AppBar(
+        title: Text('JChat'),
+        actions: [
+          DropdownButton(
+            icon: Icon(
+              Icons.more_vert_rounded,
+              color: Theme.of(context).primaryIconTheme.color,
             ),
-            itemCount: 10,
-          );
-        },
+            items: [
+              DropdownMenuItem(
+                child: Container(
+                  child: Row(
+                    children: [
+                      Icon(Icons.exit_to_app_rounded),
+                      SizedBox(
+                        width: 8,
+                      ),
+                      Text('Logout'),
+                    ],
+                  ),
+                ),
+                value: 'logout',
+              ),
+            ],
+            onChanged: (itemIdentifier) {
+              if (itemIdentifier == 'logout') {
+                FirebaseAuth.instance.signOut();
+              }
+            },
+          ),
+        ],
+      ),
+      body: Container(
+        child: Column(
+          children: [
+            Expanded(
+              child: Messages(),
+            ),
+          ],
+        ),
       ),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
         onPressed: () {
           FirebaseFirestore.instance
               .collection('/chats/E0vOYGJGAsXmGSe7wkBx/messages')
-              .snapshots()
-              .listen(
-            (event) {
-              event.docs.forEach((element) {
-                print(element['text']);
-              });
+              .add(
+            {
+              'text': 'This was added by clicking the button!',
             },
           );
         },
