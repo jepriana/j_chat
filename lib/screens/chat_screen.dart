@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:j_chat/widgets/chat/messages.dart';
 import 'package:j_chat/widgets/chat/new_message.dart';
@@ -12,6 +15,23 @@ class ChatScreen extends StatefulWidget {
 
 class _ChatScreenState extends State<ChatScreen> {
   //final Future<FirebaseApp> _initialization = Firebase.initializeApp();
+
+  @override
+  void initState() {
+    if (Platform.isIOS) {
+      final fbm = FirebaseMessaging.instance;
+      fbm.requestPermission(
+        alert: true,
+        announcement: false,
+        badge: true,
+        carPlay: false,
+        criticalAlert: false,
+        provisional: false,
+        sound: true,
+      );
+    }
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
